@@ -1,0 +1,20 @@
+.buildpath
+.project
+.settings
+
+# ignore generated html files,
+*.html
+
+*.DS_Store
+Raw/*
+
+# exclude everything except directory application
+*.[oa]
+*~
+*
+*.zip
+!build
+!img
+!lib
+!styles
+!*.php

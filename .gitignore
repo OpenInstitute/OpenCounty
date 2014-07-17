@@ -13,8 +13,9 @@ Raw/*
 *~
 *
 *.zip
-!build
-!img
-!lib
-!styles
-!*.php
+!build/*
+!img/*
+!lib/*
+!styles/*
+!.php
+

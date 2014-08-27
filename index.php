@@ -9,78 +9,23 @@
 
     <!-- Bootstrap -->
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,500,700|Roboto:400,700">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-    <link type="text/css" rel="stylesheet" href="css/nv.d3.css" />
+    <link href="css/bullet.css" rel="stylesheet">
     <link href="css/chart.css" rel="stylesheet">
-<script src="js/angular.js"></script>
-<script src="js/d3.js"></script>
-<script src="js/nv.d3.js"></script>
-<script src="js/angularjs-nvd3-directives.js"></script>
-<script>
-        var app = angular.module("nvd3TestApp", ['nvd3ChartDirectives']);
+    <link href="css/home.css" rel="stylesheet">
 
-		<?php 
-		$cid = (int)$_GET['cid'];
-                if ($cid != 0){
-                $query_Contents =mysql_query("SELECT SUM(AllocationQ1) / 1000000 AS Net, SUM(ExpendedQ1) / 1000000 AS issues FROM quarterexpenditure where countyid = $cid");
-                } else {
-           	$query_Contents =mysql_query("SELECT SUM( GrossEst_1 ) AS Gross, SUM( NetEst_1 ) AS Net, SUM( ExchIssues_1 ) AS issues FROM  nationalexpenditure WHERE  used =1");
-           	}
-		$row_Contents=mysql_fetch_assoc($query_Contents);
-		$issue = $row_Contents['issues'];
-		$net = $row_Contents['Net'];
-		//$pending = $cob + ($net - $cob);
-		?>
-   
-        function ExampleCtrl($scope){
-           $scope.exampleData =  {"title":"Expenditure","subtitle":"KES, in Millions","ranges":[<?php echo $net;?>],"measures":[<?php echo $issue;?>],"markers":[<?php echo $net;?>]};
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic|Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
 
-
-            	$scope.rangesFunction = function(){
-                console.log('rangesFunction called');
-                return function(d){
-                    return [50,100,200];
-                }
-            }
-
-        }
-   
- </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body ng-app='nvd3TestApp'>
-    
-    <!-- Top Title -->
-    <div class="top title">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <p class="welcome">
-              Welcome <b>USERNAME</b>
-            </p>
-          </div>
-          <div class="col-md-8 contacts">
-            <p>
-              <i class="fa fa-phone"></i>
-              <span class="number">+254 (0)20 1234 5678</span>
-
-
-              <i class="fa fa-envelope-o"></i>
-              <a href="mailto: info@openinstitute.com">info@openinstitute.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- //End of Top Title -->
-
+  <body>
     <!-- Banner -->
     <div class="banner">
       <div class="container">
@@ -104,172 +49,76 @@
     </div>
     <!-- //End of Banner -->
 
-    <!-- Main Menu  -->
-    <div class="main menu">
+    <!-- Hero -->
+    <div class="hero">
       <div class="container">
-        <nav class="navbar navbar-default" role="navigation">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About Open County</a></li>
-              <li class="divider"></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About the Initiative<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Counties</a></li>
-                  <li><a href="#">Budgets</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li><a href="#">Contacts</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Login</a></li>
-              <li class="divider"></li>
-            </ul>   
-          </div>
-        </nav>
-      </div>
-    </div>
-    <!-- //End of Main Menu -->
-
-
-
-    <!-- Main Content -->
-    <div class="main">
-      <div class="container">
-
-        <!-- Header -->
-        <div class="header">
-          <div class="row">
-            <div class="col-md-4">
-              <h1 class="title">
-               <?php
-               $cid = (int)$_GET['cid'];
-               if ($cid != 0) {
-                $query_Contents_0 =mysql_query("SELECT county.id , county.countyname FROM county WHERE county.id = $cid ");
-		$row_Contents_0=mysql_fetch_array($query_Contents_0);
-		$region = $row_Contents_0['countyname'];
-		} else {
-		$region = 'National';
-		}
-		echo  $region .' Allocations';
-		?>
-              </h1>
-            </div>
-            <div class="col-md-4 col-md-offset-4">
-              <div class="toggles">
-                <ul class="nav nav-pills">
-                  <li class="active">
-                    <a href="index.php">Allocation</a>
-                  </li>
-                  <li> 
-                    <a href="performance.php">Performance</a>
-                  </li>
-                </ul>
-            </div>
-          </div>
+        <h1>Welcome to the Open County Dashboard</h1>
+	<?php 
+	$query_Contents_ =mysql_query("SELECT  (SUM(NetEst_1)*1000000) as Exp, (SUM(ExchIssues_1)*1000000) as Alloc FROM nationalexpenditure WHERE used =1 ");
+	$row_Contents_=mysql_fetch_assoc($query_Contents_);
+	?>
+        <div class="stats">
+          <h2><small class="spent"><?php echo number_format($row_Contents_['Alloc'],2);?></small><small class="unit">KES</small> of the allocated <small class="allocated"><?php echo number_format($row_Contents_['Exp'],2);?></small><small class="unit">KES</small></h2>
         </div>
-        <!-- //End Header -->
 
-
-        <!-- Bullet Chart -->
-        <div class="overall">
-          <div class="row">
-            <div class="col-md-12">
-              <div ng-controller="ExampleCtrl">
-		    <nvd3-bullet-chart
-			    data="exampleData"
-			    id="exampleId"
-			    margin="{left:75,top:30,bottom:30,right:10}"
-			    width="550"
-			    height="75"
-			    interactive="true"
-        		    tooltips="true">
-			<svg></svg>
-		    </nvd3-bullet-chart>
-		</div>
-            </div>
-          </div>
+        <div class="highlights">
+          <h3><small class="desc">has been spent in the</small> 16 <small>counties present in Open County</small></h3>
         </div>
-        <!-- End overall -->
 
-        <!-- Allocation -->
-        <div class="allocation">
-          <div class="row">          
-
-            <!-- Sidebar -->
-            <div class="col-md-3 regions">
-
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                  Choose a Region
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                  <li <?php if ((int)$_GET['cid'] == 0){ echo 'class="active"';} ?>" cid="0"><a role="menuitem" tabindex="-1" href="#">National</a></li>
-                  <li class="divider"></li>
-                  <?php
-                $query_Contents_1 =mysql_query("SELECT DISTINCT county.id , county.countyname FROM county INNER JOIN  quarterexpenditure ON county.id = quarterexpenditure.countyid WHERE county.viewed =1");
-		while ($row_Contents_1=mysql_fetch_array($query_Contents_1)) {
-		 $cid = $row_Contents_1['id'];
-		?>
-                  <li <?php if ((int)$_GET['cid'] == $cid){ echo 'class="active"';} ?>" cid="<?php echo $cid; ?>"><a role="menuitem" tabindex="-1" href="#"><?php echo $row_Contents_1['countyname']; ?></a></li>
-                <?php } ?>
-                  
-                </ul>
-              </div>
-
-              <table class="table table-bordered table-hover">
-                <thead>
-                  <th>
-                    DEPARTMENTS
-                  </th>
-                </thead>
-                <tbody class="legends">
-                   <?php
-                $cid = (int)$_GET['cid'];
-                $letter = 'a';
-                if ($cid == 0 ){
-                $query_Contents_2 =mysql_query("SELECT id, indicators AS Name, ExchIssues_1 as Val FROM nationalexpenditure ");
-                }
-                else {
-                $query_Contents_2 =mysql_query("SELECT departments.id, (quarterexpenditure.AllocationQ1/1000000) as Val, departments.Name  FROM quarterexpenditure INNER JOIN departments ON quarterexpenditure.departmentid = departments.id WHERE quarterexpenditure.countyid = $cid ORDER BY  quarterexpenditure.AllocationQ1 ASC");
-                }
-		while ($row_Contents_2=mysql_fetch_array($query_Contents_2)) {
-		$did = $row_Contents_2['id'];
-		if ($letter=='i'){$letter++;}
-		?>
-                  <tr>
-                    <td class="level2 <?php if ((int)$_GET['did'] == $did){ echo 'active';} ?> legend <?php echo $letter;?>" cid="<?php echo $cid;?>" did="<?php echo $did; ?>"><i class="pointer"></i><?php echo $row_Contents_2['Name'] .' - '. number_format($row_Contents_2['Val']);?> M</td>
-                  </tr>
-                <?php $letter++; } ?>
-                </tbody>
-              </table>
-            </div>  
-            <!-- //End Sidebar -->
+        <div class="navigation">
+          <h2 class="heading">Find out what your county is accomplishing.</h2>
+		  <form name="toPerform" action="perfomance.php" method="get" id="toPerform">
+          <div class="options">
             
-            <!-- Chart             -->
-            <div class="col-md-9" id="pieChart">
-            </div>
-          </div>
-        </div>
-        <!-- //End Allocation -->
+            <div class="dropdown">
+                <select class="btn btn-default dropdown-toggle" type="button" name="countyid" id="county" data-toggle="dropdown">
+                	<option value="">Choose a Government</option>
+                	<option value="0">National</option>
+                  <?php
+                    $query_Contents_2 =mysql_query("SELECT DISTINCT county.id , county.countyname, '0' as Val FROM county INNER JOIN  Department ON county.id = Department.countyid WHERE county.viewed =1");
 
+                    while ($row_Contents_2=mysql_fetch_array($query_Contents_2)) {
+                      $cid = $row_Contents_2['id'];
+                  ?>
+                   	<option class="level1" value="<?php echo $row_Contents_2['id'];?>"><?php echo $row_Contents_2['countyname']; ?></option>
+                  <?php  } ?>
+                </select>
+            </div>
+
+            <div class="dropdown">
+              <select class="btn btn-default dropdown-toggle" type="button" name="mwaka" id="mwaka" data-toggle="dropdown">
+                <option value="">Reporting Year</option>
+                <option>2013</option>
+	              </select>
+            </div>
+
+            <button type="button" class="btn btn-default btn-go" id="submit"> Go
+              <span class="glyphicon glyphicon-play"></span>
+            </button>
+          </div>
+          </form>
+        </div>
       </div>
     </div>
-    <!-- //End Content -->
-
-
-
+    <!-- End of hero -->
+	<div id="partners" class="row">
+		
+		<div id="partner-logos">
+		<h1>Launched in partnership with</h1>
+			<a href="http://www.worldbank.org/" target="blank" class="col-lg-12 col-md-12 col-sm-12">
+				<img class="img-responsive" style="max-height:100px !important" src="img/wb.png">
+			</a>
+			
+		</div>
+	</div>
     <!-- Footer -->
     <div class="footer">
-
       <div class="footer-nav">
         <div class="container">
           <div class="row">
             <div class="col-md-4 about">
               <h4>Open County</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>Open Institute is working to develop Open County Dashboards that seek to publish county level open data - especially that which relates to progress and development at county level. The purpose of the Open County Dashboard is to strengthen the county governments’ efforts to be transparent and accountable to their citizens.</p>
 
               <div class="contacts">
                 <ul>
@@ -287,49 +136,47 @@
               </div>
             </div>
             <div class="col-md-4 menu">
-              <h4 class="footermenu">Footer Menu</h4>
+              <h4 class="footermenu">Learn More</h4>
                 <ul class="footer-menu">
                     <li>
-                    About the initiative
+                    <a href="http://www.opencounty.org/public-participation/">Pubic Participation</a>
                     </li>
                     <li>
-                    About Open County Dashboard
+                    <a href="http://www.opencounty.org/building-frameworks/">Building Frameworks</a>
                     </li>
                     <li>
-                    Disseminating knowledge
+                    <a href="http://www.opencounty.org/building-capacity/">Building Capacity</a>
                     </li>
-                    <li>
-                    Disseminating knowledge
-                    </li>
+                    
                   </ul>
             </div>
             <div class="col-md-4 ">
-              <h4>News Letter</h4>
-              <p class="social">Join our Newsletter to stay up to date...
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore
+              <h4>Newsletter</h4>
+              <p class="social">Subscribe to our newsletter to stay up to date...
+              
               </p>
               <form>
-                    <div class="row" style="padding-top: 10px;">
-                    <div class="col-md-8">
+                <div class="row" style="padding-top: 10px;">
+                  <div class="col-md-8">
                     <input type="text" placeholder="Enter Email" class="input placeholder">
-                    </div>
-                    <div class="col-md-4" style="padding-left: 0px">
+                  </div>
+                  <div class="col-md-4 submit">
                     <a href="#" class="Button">Submit</a>
                   </div>
+
               </form>
                 <div class="socialicons">
-                <a href="">
+                <a href="http://facebook.com/theopeninstitute">
                   <img src="img/facebook.png">
                 </a>
-                <a href="">
+                <a href="http://twitter.com/open_institute">
                 <img src="img/twitter.png">
                 </a>
-                <a href="">
+                <a href="http://plus.google.com/+OpenInstitute">
                 <img src="img/google.png">
                 </a>
-                <a href="">
-                  <img src="img/rss.png">
+                <a href="https://github.com/OpenInstitute/OpenCounty">
+                  <img src="img/github_icon.png">
                 </a>
                 </div>
               </div>
@@ -353,122 +200,20 @@
             </div>
           </div>
       </div>
-      <!-- //End Attribution -->
-    </div>
-
-    <!-- //End Footer -->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- End of Footer -->
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <!-- // <script src="js/d3.pie.min.js"></script> -->
-    <script src="js/d3.pie.min.js"></script>
-
     <script type="text/javascript">
-    
-     // document.styleSheets[1].cssRules[0].style['height']
-
-function getStyleSheetPropertyValue(selectorText, propertyName) {
-    // search backwards because the last match is more likely the right one
-    for (var s= document.styleSheets.length - 1; s >= 0; s--) {
-        var cssRules = document.styleSheets[s].cssRules ||
-                document.styleSheets[s].rules || []; // IE support
-        for (var c=0; c < cssRules.length; c++) {
-            if (cssRules[c].selectorText === selectorText) 
-                return cssRules[c].style[propertyName];
-        }
-    }
-    return null;
-}
-
-      (function() {
-         
-
-          var pie = new d3pie(document.getElementById("pieChart"), {
-            "size": {
-                "canvasWidth": 800,
-                "pieInnerRadius": "0%",
-                "pieOuterRadius": "50%"
-            },
-            "data": {
-                "sortOrder": "random",
-                "content": <?php
-                $cid = (int)$_GET['cid'];
-                $pieData='[';
-                $letter = 'a';
-                if ($cid == 0 ){
-                $query_Contents_2 =mysql_query("SELECT id, indicators AS Name, ExchIssues_1 as Val FROM nationalexpenditure ");
-                }
-                else {
-                $query_Contents_2 =mysql_query("SELECT (quarterexpenditure.AllocationQ1/1000000) as Val, departments.Name  FROM quarterexpenditure INNER JOIN departments ON quarterexpenditure.departmentid = departments.id WHERE quarterexpenditure.countyid = $cid ORDER BY  quarterexpenditure.AllocationQ1 ASC");
-                }
-		while ($row_Contents_2=mysql_fetch_array($query_Contents_2)) {
-		$did = $row_Contents_2['id'];
-		if ($letter=='i'){$letter++;}
-		$pieData.='{';
-		$pieData.='            "label": "'. $row_Contents_2['Name'] .'",';
-		$pieData.='            "value": '. number_format($row_Contents_2['Val']) .',';
-		$pieData.='            "color": getStyleSheetPropertyValue(".legends td.legend.'. $letter .'", "border-right-color")';
-		$pieData.='        },';
-		$letter++; 
-                }            
-                $pieData.=']';
-                $pieData = str_replace('},]', '}]', $pieData);
-                echo $pieData;
-                ?>
-            },
-            "labels": {
-                "outer": {
-                    "pieDistance": 32
-                },
-                "inner": {
-                    "format": "none"
-                },
-                "mainLabel": {
-                    "fontSize": 10
-                },
-                "percentage": {
-                    "color": "#ffffff",
-                    "decimalPlaces": 0
-                },
-                "value": {
-                    "color": "#ffffff",
-                    "fontSize": 15,
-                    "font": "Helvetica Neue"
-                },
-                "lines": {
-                    "enabled": true,
-                    "style": "straight"
-                }
-            },
-            "effects": {
-                "pullOutSegmentOnClick": {
-                    "effect": "linear",
-                    "speed": 400,
-                    "size": 8
-                }
-            },
-            "misc": {
-                "gradient": {
-                    "enabled": true,
-                    "percentage": 100
-                }
-            }
-        });
-      })();
-      
-       $(".dropdown-menu").on("click", "li", function(){
-	     	var cid =$(this).attr('cid');// $(this).text();
-	       	window.location.href='index.php?cid=' + cid;
-      	});
-      
-      $("td.level2").click(function(){
-     	var cid = $(this).attr('cid');
-     	var did = $(this).attr('did');
-     // alert(cid);
-       	window.location.href='performance.php?cid=' + cid +'&did=' + did;
-      });
-    </script>
+   $("#submit").click(function(){
+       var cid = $("#county").val();
+       var mwaka = $("#mwaka").val();
+      if (cid!="") {
+          window.location.href='performance.php?cid=' + cid;
+      }
+    });
+  
+     </script>   
   </body>
 </html>

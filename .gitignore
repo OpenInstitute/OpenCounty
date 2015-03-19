@@ -7,7 +7,7 @@
 
 *.DS_Store
 raw/*
-Includefiles/conn.inc
+
 
 # exclude everything except directory application
 *.[oa]
@@ -16,9 +16,10 @@ Includefiles/conn.inc
 *.sql
 *~
 *
+!Includefiles/
 !img/
 !fonts/
 !js/
 !css/
 !*.php
-
+Includefiles/conn.inc

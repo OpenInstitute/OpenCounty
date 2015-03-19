@@ -6,16 +6,19 @@
 *.html
 
 *.DS_Store
-Raw/*
+raw/*
+Includefiles/conn.inc
 
 # exclude everything except directory application
 *.[oa]
+*.zip
+*.txt
+*.sql
 *~
 *
-*.zip
-!*/build/*
-!*/img/*
-!*/lib/*
-!*/styles/*
+!img/
+!fonts/
+!js/
+!css/
 !*.php
 
